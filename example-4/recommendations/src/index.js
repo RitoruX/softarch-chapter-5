@@ -61,11 +61,12 @@ function setupHandlers(app, db, messageChannel) {
         // ... ADD YOUR CODE HERE TO PROCESS THE MESSAGE ...
 
         console.log("Acknowledging message was handled.");
+        console.log(`Recommendation video ${parsedMsg.id}`)
 
         messageChannel.ack(msg); // If there is no error, acknowledge the message.
     };
 
-    return messageChannel.assertExchange("viewed", "fanout") // Assert that we have a "viewed" exchange.
+    return messageChannel.assertExchange(`viewed`, "fanout") // Assert that we have a "viewed" exchange.
         .then(() => {
             return messageChannel.assertQueue("", { exclusive: true }); // Create an anonyous queue.
         })
